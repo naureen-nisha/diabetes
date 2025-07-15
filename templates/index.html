@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diabetes Prediction</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <h2 class="mb-4">🩺 Diabetes Prediction Form</h2>
+    <form method="POST" action="/predict">
+      <div class="row">
+        {% for feature in ["Pregnancies", "Glucose", "BloodPressure", "SkinThickness", "Insulin", "BMI", "DiabetesPedigreeFunction", "Age"] %}
+          <div class="col-md-6 mb-3">
+            <label class="form-label">{{ feature }}</label>
+            <input type="number" step="any" name="{{ feature }}" class="form-control" required>
+          </div>
+        {% endfor %}
+      </div>
+      <button type="submit" class="btn btn-primary mt-2">Predict</button>
+    </form>
+
+    {% if prediction is not none %}
+      <div class="alert alert-info mt-4">
+        <h4>Prediction: {{ "Diabetic" if prediction == 1 else "Not Diabetic" }}</h4>
+        <p>Probability of having diabetes: <strong>{{ probability }}%</strong></p>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
+
